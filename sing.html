@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Downloader</title>
+</head>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<style>
+    * {
+        text-align: center;
+    }
+
+    .heading {
+        font-family: Arial;
+        margin-top: 40vh;
+    }
+
+    .URL-input,
+    .convert-button {
+        font-size: 1.3em;
+        padding: 5px 10px;
+    }
+
+    .URL-input {
+        border-radius: 4px 0px 0px 4px;
+        width: 30em;
+        text-align: left;
+        border: 2px solid #EEEEEE;
+        background: #EEEEEE;
+        outline: none;
+    }
+
+    .URL-input:focus {
+        border: 2px solid #0485ff;
+    }
+
+    .convert-button {
+        border-radius: 0px 4px 4px 0px;
+        border: 2px solid balck;
+        background: black;
+        color: white;
+    }
+</style>
+
+<body>
+    <h1 class="heading">Youtube Video Downloader</h1>
+    <input class="URL-input" placeholder="enter the video link">
+    <button class="convert-button">Get</button>
+</body>
+<script>
+    var convertBtn = document.querySelector('.convert-button');
+    var URLinput = document.querySelector('.URL-input');
+    var fileName = ''
+
+    convertBtn.addEventListener('click', () => {
+        var fileName = prompt("rename your filename", "")
+        if (fileName) {
+            console.log(`URL: ${URLinput.value}`);
+            sendURL(URLinput.value, fileName);
+        }
+
+    });
+    // function sendURL(URL,fileName) {
+    //     window.location.href = `http://localhost:4000/download?URL=${URL}&name=${fileName}`;
+    // }
+    function sendURL(URL, fileName) {
+        $.get("/download", {
+                url: URL,
+                name: fileName,
+            },
+            function (res) {
+                console.log(res)
+                alert(res)
+            })
+
+    }
+</script>
+
+</html>
